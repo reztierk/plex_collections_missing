@@ -150,16 +150,7 @@ def get_plex_data(url):
 
 def get_tmdb_collection_id(plex_collection):
     for movie in plex_collection.children:
-        guid = movie.guid
-        match = False
-
-        if DEBUG:
-            print('Movie guid: %s' % guid)
-
-        if guid.startswith('com.plexapp.agents.imdb://'):  # Plex Movie agent
-            match = re.search(r'tt[0-9]\w+', guid)
-        elif guid.startswith('com.plexapp.agents.themoviedb://'):  # TheMovieDB agent
-            match = re.search(r'[0-9]\w+', guid)
+        match = get_tmdb_id(movie.guid)
 
         if not match:
             continue
@@ -176,26 +167,28 @@ def get_tmdb_ids(plex_collection):
     tmdb_ids = []
 
     for movie in plex_collection.children:
-        guid = movie.guid
-        match = False
-
-        if DEBUG:
-            print('Movie guid: %s' % guid)
-
-        if guid.startswith('com.plexapp.agents.imdb://'):  # Plex Movie agent
-            match = re.search(r'tt[0-9]\w+', guid)
-        elif guid.startswith('com.plexapp.agents.themoviedb://'):  # TheMovieDB agent
-            match = re.search(r'[0-9]\w+', guid)
+        match = get_tmdb_id(movie.guid)
 
         if match:
-            id = match.group()
+            tmdb_id = match.group()
             if id[:2] == 'tt':
-                movie = Movie().details(movie_id=id)
-                id = movie.id
+                movie = Movie().details(movie_id=tmdb_id)
+                tmdb_id = movie.id
 
-            tmdb_ids.append(id)
+            tmdb_ids.append(tmdb_id)
 
     return tmdb_ids
+
+
+def get_tmdb_id(guid):
+    match = False
+
+    if guid.startswith('com.plexapp.agents.imdb://'):  # Plex Movie agent
+        match = re.search(r'tt[0-9]\w+', guid)
+    elif guid.startswith('com.plexapp.agents.themoviedb://'):  # TheMovieDB agent
+        match = re.search(r'[0-9]\w+', guid)
+
+    return match
 
 
 @click.group()
