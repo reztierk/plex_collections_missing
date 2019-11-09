@@ -13,26 +13,22 @@ from plexapi.server import PlexServer
 from tmdbv3api import TMDb, Collection, Movie
 
 CONFIG_FILE = 'config.yaml'
-POSTER_ITEM_LIMIT = 5
 DEBUG = False
 DRY_RUN = False
-FORCE = False
 LIBRARY_IDS = False
 CONFIG = dict()
 TMDB = TMDb()
 
 
-def init(debug=False, dry_run=False, force=False, library_ids=False):
+def init(debug=False, dry_run=False, library_ids=False):
     global DEBUG
     global DRY_RUN
-    global FORCE
     global LIBRARY_IDS
     global CONFIG
     global TMDB
 
     DEBUG = debug
     DRY_RUN = dry_run
-    FORCE = force
     LIBRARY_IDS = library_ids
 
     if not DEBUG:
@@ -209,11 +205,10 @@ def command_setup():
              epilog="eg: plex_collections_missing.py run --dry-run --library=5 --library=8")
 @click.option('--debug', '-v', default=False, is_flag=True)
 @click.option('--dry-run', '-d', default=False, is_flag=True)
-@click.option('--force', '-f', default=False, is_flag=True, help='Overwrite existing data.')
 @click.option('--library', default=False, multiple=True, type=int,
               help='Library ID to Update (Default all movie libraries)')
-def run(debug, dry_run, force, library):
-    init(debug, dry_run, force, library)
+def run(debug, dry_run, library):
+    init(debug, dry_run, library)
     print('\r\nChecking Collection(s)')
     check()
 
