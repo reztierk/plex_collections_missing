@@ -102,18 +102,18 @@ def check_collection(plex_collection, section_title, count, total):
             missing.append(part)
 
     if not missing:
-        click.secho('\r\n%s %s [%s/%s] ' % (u'\u2713', plex_collection.title, count, total), fg='green')
+        click.secho('%s %s [%s/%s]' % (u'\u2713', plex_collection.title, count, total), fg='green')
         if not DRY_RUN:
             append_file(section_title, '%s %s [%s/%s]\n' % ('\u2713', plex_collection.title, count, total))
         return
 
-    click.secho('\r\n%s %s [%s/%s] ' % (u'\u2717', plex_collection.title, count, total), fg='red')
+    click.secho('%s %s [%s/%s]' % (u'\u2717', plex_collection.title, count, total), fg='red')
     if not DRY_RUN:
         append_file(section_title, '%s %s [%s/%s]\n' % ('\u2717', plex_collection.title, count, total))
     for x in missing:
-        click.secho('Missing : %s (%s)' % (x.get('title'), x.get('release_date')[:4]), fg='red')
+        click.secho('  - %s (%s)' % (x.get('title'), x.get('release_date')[:4]), fg='red')
         if not DRY_RUN:
-            append_file(section_title, '\t%s (%s)\n' % (x.get('title'), x.get('release_date')[:4]))
+            append_file(section_title, '  - %s (%s)\n' % (x.get('title'), x.get('release_date')[:4]))
 
 
 def create_file(collection_name):
@@ -167,7 +167,7 @@ def get_tmdb_ids(plex_collection):
 
         if match:
             tmdb_id = match.group()
-            if id[:2] == 'tt':
+            if tmdb_id[:2] == 'tt':
                 movie = Movie().details(movie_id=tmdb_id)
                 tmdb_id = movie.id
 

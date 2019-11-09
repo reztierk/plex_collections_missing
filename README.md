@@ -48,3 +48,20 @@ Options:
     -d, --dry-run
     --library INTEGER  Library ID to Update (Default all movie libraries)
 
+### Example Output
+    
+    Checking Collection(s)
+    ID: 5    Name: Movies
+    ✗ Aladdin [1/75]
+      - The Return of Jafar (1994)
+      - Aladdin and the King of Thieves (1996)
+    ✗ Alien [2/75]
+      - Alien³ (1992)
+      - Alien Resurrection (1997)
+    ✓ The Amazing Spider-Man [3/75]
+    ✓ Ant-Man [4/75]
+    ✓ Aquaman [5/75]
+    ✓ Avatar [6/75]
+    ✓ The Avengers [7/75]
+    
+    ...
