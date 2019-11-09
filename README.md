@@ -39,7 +39,7 @@ or `--library` to check only a specific libraries collections.
     python plex_collections_missing.py run
     
     # Just posters, dry run and filter by library ID's 
-    python plex_collections_missing.py run posters --dry-run --library=5 --library=8
+    python plex_collections_missing.py run --dry-run --library=5 --library=8
     
 
 Options: 
