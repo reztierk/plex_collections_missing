@@ -179,6 +179,10 @@ def get_tmdb_ids(plex_collection):
             tmdb_id = match.group()
             if tmdb_id[:2] == 'tt':
                 movie = Movie().details(movie_id=tmdb_id)
+
+                if not hasattr(movie, 'id'):
+                    continue
+
                 tmdb_id = movie.id
 
             tmdb_ids.append(tmdb_id)
