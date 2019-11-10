@@ -97,10 +97,10 @@ def check_collection(plex_collection, section_title, count, total):
 
     if not hasattr(collection, 'parts'):
         click.secho('%s %s [%s/%s] - No TMDB Collection Data' %
-                    (u'\u2754', plex_collection.title, count, total), fg='yellow')
+                    (u'\uFFFD', plex_collection.title, count, total), fg='yellow')
         if not DRY_RUN:
             append_file(section_title, '%s %s [%s/%s] - No TMDB Collection Data\n' %
-                        ('\u2754', plex_collection.title, count, total))
+                        ('\uFFFD', plex_collection.title, count, total))
         return
 
     for part in collection.parts:
