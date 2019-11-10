@@ -38,8 +38,6 @@ def init(debug=False, dry_run=False, library_ids=False):
         except yaml.YAMLError as exc:
             print(exc)
 
-    CONFIG['headers'] = {'X-Plex-Token': CONFIG['plex_token']}
-
     TMDB.api_key = CONFIG['tmdb_key']
     TMDB.wait_on_rate_limit = True
     TMDB.language = 'en'
