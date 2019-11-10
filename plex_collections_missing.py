@@ -3,8 +3,6 @@
 import re
 import os
 import yaml
-import requests
-import xml.etree.ElementTree as ElementTree
 import click
 import pprint as pretty
 import logging
@@ -145,11 +143,6 @@ def list_libraries():
             continue
 
         print('ID: %s Name: %s' % (str(plex_section.key).ljust(4, ' '), plex_section.title))
-
-
-def get_plex_data(url):
-    r = requests.get(url, headers=CONFIG['headers'])
-    return ElementTree.fromstring(r.text)
 
 
 def get_tmdb_collection_id(plex_collection):
