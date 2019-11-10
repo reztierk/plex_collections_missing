@@ -95,6 +95,14 @@ def check_collection(plex_collection, section_title, count, total):
     curent_year = datetime.now().year
     missing = []
 
+    if not hasattr(collection, 'parts'):
+        click.secho('%s %s [%s/%s] - No TMDB Collection Data' %
+                    (u'\u2754', plex_collection.title, count, total), fg='yellow')
+        if not DRY_RUN:
+            append_file(section_title,
+                        '%s %s [%s/%s] - No TMDB Collection Data\n' % ('\u2754', plex_collection.title, count, total))
+        return
+
     for part in collection.parts:
         if not part.get('release_date'):
             continue
@@ -154,9 +162,11 @@ def get_tmdb_collection_id(plex_collection):
         movie = Movie().details(movie_id=match.group())
 
         if not movie.entries.get('belongs_to_collection'):
-            return '-1'
+            continue
 
         return movie.entries.get('belongs_to_collection').get('id')
+
+    return '-1'
 
 
 def get_tmdb_ids(plex_collection):
