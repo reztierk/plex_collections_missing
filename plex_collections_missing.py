@@ -219,9 +219,9 @@ def run(debug, dry_run, library):
 
 
 @cli.command('list', help='List all Libraries')
-def command_update_posters():
+def list_all():
     init()
-    print('\r\nUpdating Collection Posters')
+    print('\r\nLibraries:')
     list_libraries()
 
 
